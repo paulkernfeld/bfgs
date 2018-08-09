@@ -1,0 +1,14 @@
+[tasks.readme]
+install_crate = "readme"
+command = "cargo"
+args = ["readme", "-o", "README.md"]
+
+[tasks.testfast]
+command = "cargo"
+args = ["test", "--release"]
+
+[tasks.all]
+dependencies = [
+    "testfast",
+    "readme",
+]

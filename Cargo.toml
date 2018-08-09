@@ -1,0 +1,15 @@
+[package]
+name = "bfgs"
+description = "A pure Rust implementation of the BFGS optimization algorithm"
+readme = "README.md"
+version = "0.1.0"
+authors = ["Paul Kernfeld <paulkernfeld@gmail.com>"]
+license = "MIT/Apache-2.0"
+documentation = "https://crates.io/crates/bfgs"
+repository = "https://github.com/paulkernfeld/bfgs"
+
+[dependencies]
+ndarray = "0.11"
+
+[dev-dependencies]
+spectral = "0.6"
