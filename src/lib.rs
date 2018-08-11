@@ -1,3 +1,4 @@
+#![feature(test)]
 //! This package contains an implementation of
 //! [BFGS](https://en.wikipedia.org/w/index.php?title=BFGS_method), an algorithm for minimizing
 //! convex twice-differentiable functions.
@@ -23,6 +24,8 @@
 extern crate ndarray;
 #[cfg(test)]
 extern crate spectral;
+
+mod benchmark;
 
 use ndarray::{Array1, Array2};
 use std::f64::INFINITY;
