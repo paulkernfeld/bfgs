@@ -119,9 +119,9 @@ pub fn bfgs<F, G>(x0: Array1<f64>, f: F, g: G) -> Result<Array1<f64>, ()>
         g_x = g(&x);
 
         // Compute deltas between old and new
-        let y: Array2<f64> = (&g_x - &g_x_old).into_shape((p, 1)).unwrap();
-        let s: Array2<f64> = (epsilon * search_dir).into_shape((p, 1)).unwrap();
-        let sy: f64 = s.t().dot(&y).into_shape(()).unwrap()[()];
+        let y: Array2<f64> = (&g_x - &g_x_old).into_shape((p, 1)).expect("y into_shape failed");
+        let s: Array2<f64> = (epsilon * search_dir).into_shape((p, 1)).expect("s into_shape failed");
+        let sy: f64 = s.t().dot(&y).into_shape(()).expect("sy into_shape failed")[()];
         let ss: Array2<f64> = s.dot(&s.t());
 
         if stop(f_x_old, f_x) {
