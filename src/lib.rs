@@ -163,16 +163,6 @@ mod tests {
     }
 
     #[test]
-    fn test_x_squared_big_d() {
-        let p = 10_000;
-        let x0 = Array1::from_elem(p, 2.0);
-        let f = |x: &Array1<f64>| x.iter().map(|xx| xx * xx).sum();
-        let g = |x: &Array1<f64>| 2.0 * x;
-        let x_min = bfgs(x0, f, g);
-        assert_eq!(x_min, Ok(Array1::zeros(p)));
-    }
-
-    #[test]
     fn test_rosenbrock() {
         let x0 = array![0.0, 0.0];
         let f = |x: &Array1<f64>| (1.0 - x[0]).powi(2) + 100.0 * (x[1] - x[0].powi(2)).powi(2);
