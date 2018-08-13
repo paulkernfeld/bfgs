@@ -152,6 +152,15 @@ mod tests {
         assert_eq!(x_min, Ok(array![0.0]));
     }
 
+    #[test]
+    fn test_begin_at_minimum() {
+        let x0 = array![0.0];
+        let f = |x: &Array1<f64>| x.iter().map(|xx| xx * xx).sum();
+        let g = |x: &Array1<f64>| 2.0 * x;
+        let x_min = bfgs(x0, f, g);
+        assert_eq!(x_min, Ok(array![0.0]));
+    }
+
     // An error because this function has a maximum instead of a minimum
     #[test]
     fn test_negative_x_squared() {
