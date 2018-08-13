@@ -18,10 +18,8 @@
 //!     assert_eq!(x_min, Ok(Array::from_vec(vec![0.0, 0.0])));
 //! }
 //! ```
-#[cfg(not(test))]
-extern crate ndarray;
-#[cfg(test)]
-#[macro_use(array)]
+
+#[cfg_attr(test, macro_use(array))]
 extern crate ndarray;
 #[cfg(test)]
 extern crate spectral;
@@ -103,11 +101,7 @@ pub fn bfgs<F, G>(x0: Array1<f64>, f: F, g: G) -> Result<Array1<f64>, ()>
         let search_dir = -1.0 * b_inv.dot(&g_x);
 
         // Find a good step size
-        let epsilon = if let Ok(eps) = line_search(|epsilon| f(&(&search_dir * epsilon + &x))) {
-            eps
-        } else {
-            return Err(());
-        };
+        let epsilon = line_search(|epsilon| f(&(&search_dir * epsilon + &x))).map_err(|_| ())?;
 
         // Save the old values
         let f_x_old = f_x;
@@ -119,9 +113,9 @@ pub fn bfgs<F, G>(x0: Array1<f64>, f: F, g: G) -> Result<Array1<f64>, ()>
         g_x = g(&x);
 
         // Compute deltas between old and new
-        let y: Array2<f64> = (&g_x - &g_x_old).into_shape((p, 1)).unwrap();
-        let s: Array2<f64> = (epsilon * search_dir).into_shape((p, 1)).unwrap();
-        let sy: f64 = s.t().dot(&y).into_shape(()).unwrap()[()];
+        let y: Array2<f64> = (&g_x - &g_x_old).into_shape((p, 1)).expect("y into_shape failed");
+        let s: Array2<f64> = (epsilon * search_dir).into_shape((p, 1)).expect("s into_shape failed");
+        let sy: f64 = s.t().dot(&y).into_shape(()).expect("sy into_shape failed")[()];
         let ss: Array2<f64> = s.dot(&s.t());
 
         if stop(f_x_old, f_x) {
@@ -184,10 +178,7 @@ mod tests {
                 200.0 * (x[1] - x[0].powi(2)),
             ]
         };
-        if let Ok(x_min) = bfgs(x0, f, g) {
-            assert_that(&l2_distance(&x_min, &array![1.0, 1.0])).is_less_than(&0.01);
-        } else {
-            panic!("Rosenbrock test failed")
-        }
+        let x_min = bfgs(x0, f, g).expect("Rosenbrock test failed");
+        assert_that(&l2_distance(&x_min, &array![1.0, 1.0])).is_less_than(&0.01);
     }
 }
