@@ -1,3 +1,4 @@
+#![feature(alloc_system)]
 #![feature(test)]
 //! This package contains an implementation of
 //! [BFGS](https://en.wikipedia.org/w/index.php?title=BFGS_method), an algorithm for minimizing
@@ -19,7 +20,7 @@
 //!     assert_eq!(x_min, Ok(Array::from_vec(vec![0.0, 0.0])));
 //! }
 //! ```
-
+extern crate alloc_system;
 #[cfg_attr(test, macro_use(array))]
 extern crate ndarray;
 #[cfg(test)]
