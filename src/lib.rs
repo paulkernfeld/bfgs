@@ -1,4 +1,3 @@
-#![feature(alloc_system)]
 #![feature(test)]
 //! This package contains an implementation of
 //! [BFGS](https://en.wikipedia.org/w/index.php?title=BFGS_method), an algorithm for minimizing
@@ -27,7 +26,6 @@
 //!
 //! This project uses [cargo-make](https://sagiegurari.github.io/cargo-make/) for builds; to build,
 //! run `cargo make all`.
-extern crate alloc_system;
 #[cfg_attr(test, macro_use(array))]
 extern crate ndarray;
 #[cfg(test)]

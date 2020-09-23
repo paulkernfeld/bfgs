@@ -8,9 +8,6 @@ license = "MIT/Apache-2.0"
 documentation = "https://docs.rs/bfgs"
 repository = "https://github.com/paulkernfeld/bfgs"
 
-[profile.release]
-debug = true
-
 [dependencies]
 ndarray = "0.11"
 
