@@ -81,7 +81,7 @@ fn new_identity_matrix(len: usize) -> Array2<f64> {
 // If the improvement in f is not too much bigger than the rounding error, then call it a
 // success. This is the first stopping criterion from Zhu et al.
 fn stop(f_x_old: f64, f_x: f64) -> bool {
-    let negative_delta_f = &f_x_old - &f_x;
+    let negative_delta_f = f_x_old - f_x;
     let denom = f_x_old.abs().max(f_x.abs()).max(1.0);
     negative_delta_f / denom <= F_TOLERANCE
 }
@@ -91,6 +91,7 @@ fn stop(f_x_old: f64, f_x: f64) -> bool {
 /// - `x0` is an initial guess for `x`. Often this is chosen randomly.
 /// - `f` is the objective function
 /// - `g` is the gradient of `f`
+#[allow(clippy::many_single_char_names)]
 pub fn bfgs<F, G>(x0: Array1<f64>, f: F, g: G) -> Result<Array1<f64>, ()>
 where
     F: Fn(&Array1<f64>) -> f64,

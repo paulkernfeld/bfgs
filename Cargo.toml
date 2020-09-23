@@ -7,6 +7,7 @@ authors = ["Paul Kernfeld <paulkernfeld@gmail.com>"]
 license = "MIT/Apache-2.0"
 documentation = "https://docs.rs/bfgs"
 repository = "https://github.com/paulkernfeld/bfgs"
+edition = "2018"
 
 [dependencies]
 ndarray = "0.11"
