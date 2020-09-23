@@ -6,5 +6,8 @@ args = ["readme", "-o", "README.md"]
 [tasks.all]
 dependencies = [
     "test",
+    "clippy",
+    "format",
     "readme",
+    "docs",
 ]
