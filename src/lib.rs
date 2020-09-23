@@ -49,8 +49,8 @@ const F_TOLERANCE: f64 = FACTR * F64_MACHINE_EPSILON;
 // Dumbly try many values of epsilon, taking the best one
 // Return the value of epsilon that minimizes f
 fn line_search<F>(f: F) -> Result<f64, ()>
-    where
-        F: Fn(f64) -> f64,
+where
+    F: Fn(f64) -> f64,
 {
     let mut best_epsilon = 0.0;
     let mut best_val_f = INFINITY;
@@ -92,9 +92,9 @@ fn stop(f_x_old: f64, f_x: f64) -> bool {
 /// - `f` is the objective function
 /// - `g` is the gradient of `f`
 pub fn bfgs<F, G>(x0: Array1<f64>, f: F, g: G) -> Result<Array1<f64>, ()>
-    where
-        F: Fn(&Array1<f64>) -> f64,
-        G: Fn(&Array1<f64>) -> Array1<f64>,
+where
+    F: Fn(&Array1<f64>) -> f64,
+    G: Fn(&Array1<f64>) -> Array1<f64>,
 {
     let mut x = x0;
     let mut f_x = f(&x);
@@ -122,8 +122,12 @@ pub fn bfgs<F, G>(x0: Array1<f64>, f: F, g: G) -> Result<Array1<f64>, ()>
         g_x = g(&x);
 
         // Compute deltas between old and new
-        let y: Array2<f64> = (&g_x - &g_x_old).into_shape((p, 1)).expect("y into_shape failed");
-        let s: Array2<f64> = (epsilon * search_dir).into_shape((p, 1)).expect("s into_shape failed");
+        let y: Array2<f64> = (&g_x - &g_x_old)
+            .into_shape((p, 1))
+            .expect("y into_shape failed");
+        let s: Array2<f64> = (epsilon * search_dir)
+            .into_shape((p, 1))
+            .expect("s into_shape failed");
         let sy: f64 = s.t().dot(&y).into_shape(()).expect("sy into_shape failed")[()];
         let ss: Array2<f64> = s.dot(&s.t());
 
@@ -140,9 +144,8 @@ pub fn bfgs<F, G>(x0: Array1<f64>, f: F, g: G) -> Result<Array1<f64>, ()>
 
 #[cfg(test)]
 mod tests {
-    use ndarray::prelude::*;
-    use spectral::prelude::*;
     use super::*;
+    use spectral::prelude::*;
 
     fn l2_distance(xs: &Array1<f64>, ys: &Array1<f64>) -> f64 {
         xs.iter().zip(ys.iter()).map(|(x, y)| (y - x).powi(2)).sum()

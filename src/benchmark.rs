@@ -1,8 +1,8 @@
 #![cfg(test)]
 extern crate test;
 
-use super::*;
 use self::test::Bencher;
+use super::*;
 
 #[bench]
 fn test_x_fourth_p_1000(bencher: &mut Bencher) {
