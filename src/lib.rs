@@ -13,7 +13,7 @@
 //! extern crate bfgs;
 //! extern crate ndarray;
 //!
-//! use ndarray::prelude::*;
+//! use ndarray::{Array, Array1};
 //!
 //! fn main() {
 //!     let x0 = Array::from_vec(vec![8.888, 1.234]);  // Chosen arbitrarily
@@ -26,11 +26,6 @@
 //!
 //! This project uses [cargo-make](https://sagiegurari.github.io/cargo-make/) for builds; to build,
 //! run `cargo make all`.
-#[cfg_attr(test, macro_use(array))]
-extern crate ndarray;
-#[cfg(test)]
-extern crate spectral;
-
 mod benchmark;
 
 use ndarray::{Array1, Array2};
@@ -145,8 +140,10 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use spectral::prelude::*;
+    use crate::bfgs;
+    use ndarray::{array, Array1};
+    use spectral::assert_that;
+    use spectral::numeric::OrderedAssertions;
 
     fn l2_distance(xs: &Array1<f64>, ys: &Array1<f64>) -> f64 {
         xs.iter().zip(ys.iter()).map(|(x, y)| (y - x).powi(2)).sum()

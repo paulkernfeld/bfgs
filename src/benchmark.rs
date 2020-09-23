@@ -1,8 +1,9 @@
 #![cfg(test)]
 extern crate test;
 
-use self::test::Bencher;
-use super::*;
+use crate::bfgs;
+use ndarray::Array1;
+use test::Bencher;
 
 #[bench]
 fn test_x_fourth_p_1000(bencher: &mut Bencher) {

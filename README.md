@@ -14,7 +14,7 @@ In this example, we minimize a 2d function:
 extern crate bfgs;
 extern crate ndarray;
 
-use ndarray::prelude::*;
+use ndarray::{Array, Array1};
 
 fn main() {
     let x0 = Array::from_vec(vec![8.888, 1.234]);  // Chosen arbitrarily
